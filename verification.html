@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>验证码案例</title>
+  </head>
+  <body>
+    <input type="text" id="userInp" />
+    <br />
+    <span id="code"></span>
+    <button id="changeCode">看不清，换一张</button>
+
+    <script>
+      const userInp = document.querySelector("#userInp"),
+        code = document.querySelector("#code"),
+        changeCode = document.querySelector("#changeCode");
+      function generateCode() {
+        const str =
+          "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+        let result = "";
+        for (let i = 0; i < 4; i++) {
+          result += str[Math.round(Math.random() * str.length)];
+        }
+        code.innerHTML = result;
+      }
+
+      generateCode();
+
+      changeCode.onclick = function () {
+        generateCode();
+      };
+
+      userInp.onblur = function () {
+        userInp.value.toLowerCase() === code.innerHTML.toLowerCase()
+          ? alert("恭喜你输入成功")
+          : alert("输入失败");
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>jsonp请求数据</h1>
+    <h2 id="name">姓名:</h2>
+    <script>
+      function callbackFunction(data) {
+        const title = document.querySelector("#name");
+        const name = (data && data.name) || "default";
+        title.innerHTML = title.innerHTML.concat(name);
+      }
+    </script>
+    <!-- 只是想跨域发请求，可以使用img，需要执行返回的结果，必须用script标签-->
+    <script src="http://localhost:8000/jsonp?callback=callbackFunction"></script>
+    <!-- <img
+      src="http://localhost:8000/jsonp?callback=callbackFunction"
+      alt="title"
+    /> -->
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      /* 流体布局 */
+      .father {
+        overflow: hidden;
+        width: 200px;
+      }
+      .father > img {
+        width: 60px;
+        height: 64px;
+        margin-right: 10px;
+        float: left;
+      }
+      .animal {
+        margin-left: 70px;
+      }
+      .bfc {
+        overflow: hidden;
+      }
+      .clearfix::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      /*  */
+    </style>
+    <h1>流体实现自适应布局</h1>
+
+    <div class="father">
+      <img src="me.jpg" />
+      <div>
+        <div class="animal">
+          小猫1，小猫2，...小猫1，小猫2，...小猫1，
+          小猫2，...小猫1，小猫2，...小猫1，小猫2，...
+        </div>
+      </div>
+    </div>
+    <br />
+    <p>
+      劣势：需要手动计算右侧的margin保证不会和左侧内容覆盖,如果内部使用了clear，可能会导致内容错乱
+    </p>
+
+    <h1>bfc+纯流体实现自适应布局</h1>
+    <div class="father">
+      <img src="me.jpg" />
+      <div class="bfc">
+        <p>
+          小猫1，小猫2，...小猫1，小猫2，...小猫1，小猫2，...小猫1，小猫2，...
+        </p>
+      </div>
+    </div>
+    <br />
+    <p>
+      优势：1.
+      自适应的内容是由于是封闭的，健壮性更强，容错率更高，即使内部有clear：both也不会影响之后的元素
+      2.自适应内容自动填满浮动以外区域，无
+      须关心浮动元素宽度，不用手动计算margin等，可以整站大规模应用
+    </p>
+    <br />
+    <style>
+      .summary {
+        text-align: center;
+      }
+    </style>
+    <div class="summary">
+      <h1>BFC家族总结</h1>
+      <ul>
+        <li>overflow:auto/hidden，适用于 IE7 及以上版本浏览器;</li>
+        <li>display:inline-block，适用于 IE6 和 IE7;</li>
+        <li>display:table-cell，适用于 IE8</li>
+        
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      div {
+        height: 300px;
+      }
+      .container > div {
+        float: left;
+      }
+      .middle {
+        width: 100%;
+        background: pink;
+      }
+      .left {
+        width: 400px;
+        margin-left: -100%;
+        background: blue;
+      }
+      .right {
+        width: 300px;
+        margin-left: -300px;
+        background: green;
+      }
+      .middle-inner {
+        width: 100%;
+        margin-left: 400px;
+        margin-right: 300px;
+      }
+    </style>
+    <!-- 双飞翼的 HTML 结构 -->
+    <div class="container">
+      <!-- 中间的 div 必须写在最前面 -->
+      <div class="middle">
+        <div class="middle-inner">中间弹性区</div>
+      </div>
+      <div class="left">左边栏</div>
+      <div class="right">右边栏</div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- <div id="outer">
+      <div id="inner" style="position: relative;">
+        <div id="center"></div>
+      </div>
+    </div>
+    <script>
+      var outer = document.getElementById("outer"),
+        inner = document.getElementById("inner"),
+        center = document.getElementById("center");
+      console.log(center.offsetParent); //body
+      console.log(inner.offsetParent); //body
+      console.log(outer.offsetParent); //body
+      console.log(document.body.offsetParent);
+    </script> -->
+    <div>
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor, deleniti
+      cum. Ducimus inventore, obcaecati sunt debitis cum magnam ullam um, dolor
+      sit amet consectetur adipisicing elit. Dolor, deleniti cum. Ducimus
+      inventore, obcaecati sunt debitis cum magnam ullam vel, expedita
+      praesentium, fugit ratione perferendis itaque deserunt explium, dolor sit
+      <!-- amet consectetur adipisicing elit. Dolor, deleniti cum. Ducimus inventore,
+      obcaecati sunt debitis cum magnam ullam vel, expedita praesentium, fugit
+      ratione perferendis itaque deserunt explium, dolor sit amet consectetur
+      adipisicing elit. Dolor, deleniti cum. Ducimus inventore, obcaecati sunt
+      debitis cum magnam ullam vel, expedita praesentium, fugit ratione
+      perferendis itaque deserunt explium, dolor sit amet consectetur
+      adipisicing elit. Dolor, deleniti cum. Ducimus inventore, obcaecati sunt
+      debitis cum magnam ullam vel, expedita praesentium, fugit ratione
+      perferendis itaque deserunt explium, dolor sit amet consectetur
+      adipisicing elit. Dolor, deleniti cum. Ducimus inventore, obcaecati sunt
+      debitis cum magnam ullam vel, expedita praesentium, fugit ratione perf -->
+    </div>
+    <div>
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor, deleniti
+      cum. Ducimus inventore, obcaecati sunt debitis cum magnam ullam um, dolor
+      sit amet consectetur adipisicing elit. Dolor, deleniti cum. Ducimus
+      inventore, obcaecati sunt debitis cum magnam ullam vel, expedita
+      praesentium, fugit ratione perferendis itaque deserunt explium, dolor sit
+      amet consectetur adipisicing elit. Dolor, deleniti cum. Ducimus inventore,
+      obcaecati sunt debitis cum magnam ullam vel, expedita praesentium, fugit
+      ratione perferendis itaque deserunt explium, dolor sit amet consectetur
+      adipisicing elit. Dolor, deleniti cum. Ducimus inventore, obcaecati sunt
+      debitis cum magnam ullam vel, expedita praesentium, fugit ratione
+      perferendis itaque deserunt explium, dolor sit amet consectetur
+      adipisicing elit. Dolor, deleniti cum. Ducimus inventore, obcaecati sunt
+      debitis cum magnam ullam vel, expedita praesentium, fugit ratione
+      perferendis itaque deserunt explium, dolor sit amet consectetur
+      adipisicing elit. Dolor, deleniti cum. Ducimus inventore, obcaecati sunt
+      debitis cum magnam ullam vel, expedita praesentium, fugit ratione perf
+    </div>
+    <style>
+      div {
+        width: 200px;
+        height: 400px;
+        padding: 20px;
+        margin: 10px;
+        border: 15px solid red;
+        background-color: lightblue;
+        overflow: auto;
+      }
+    </style>
+    <script>
+      const div = document.querySelector("div");
+      window.onload = function () {
+        console.log("dom element属性");
+        // 使用style属性，只能获得行内样式的属性，但是设置高度只能通过这个值，不能用其他
+        console.log("dom高度方式1: " + div.style.height);
+        // chrome下只能通过这种方式获取到元素的高度值，但是这个值是只读的
+        console.log("dom高度方式2: " + window.getComputedStyle(div)["height"]);
+      };
+
+      //   console.log(div.currentStyle.border);
+      console.log("client系列值");
+      console.log(div.clientHeight);
+      console.log(div.clientWidth);
+      console.log(div.clientTop);
+      console.log(div.clientLeft);
+      console.log("offset系列值");
+      console.log(div.offsetHeight);
+      console.log(div.offsetWidth);
+      console.log(div.offsetParent);
+      console.log(div.offsetTop);
+      console.log(div.offsetLeft);
+      console.log("scroll系列值");
+      console.log(div.scrollHeight);
+      console.log(div.scrollWidth);
+      console.log(div.scrollTop);
+      console.log(div.scrollLeft);
+    </script>
+  </body>
+</html>

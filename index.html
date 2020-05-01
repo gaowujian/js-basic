@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      div {
+        width: 100px;
+        height: 100px;
+        padding: 100px;
+        background-color: lightcoral;
+      }
+      p {
+        width: 10px;
+        height: 10px;
+        background-color: red;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+    <div>
+      Hello
+      <p>22</p>
+    </div>
+    <script>
+      var p = document.querySelector("div");
+      var inner = document.querySelector("p");
+      p.addEventListener(
+        "mousemove",
+        function (e) {
+          // console.log(e.offsetX);
+          // console.log(e.offsetY);
+          // console.log(p.clientWidth);
+          // console.log(p.offsetWidth);
+          console.log(e.offsetX);
+          inner.style.left = `${e.offsetX}px`;
+          inner.style.top = `${e.offsetX}px`;
+        },
+        false
+      );
+    </script>
+  </body>
+</html>

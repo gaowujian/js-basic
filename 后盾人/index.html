@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./HD.js"></script>
+  </head>
+  <body>
+    <h1>今天来学习Promise</h1>
+    <script>
+      const p = new HD((resolve, reject) => {
+        setTimeout(() => {
+          resolve("成功");
+          console.log(p);
+        }, 3000);
+      });
+      p.then(
+        (value) => {
+          console.log(value);
+        },
+        (reason) => {
+          console.log(reason);
+        }
+      );
+      p.then(
+        (value) => {
+          console.log(value);
+        },
+        (reason) => {
+          console.log(reason);
+        }
+      );
+    </script>
+  </body>
+</html>

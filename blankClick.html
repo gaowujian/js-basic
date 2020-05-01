@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <a href="#" onmouseover="mouseover()">放上来</a>
+
+    <div style="display: none" id="div"> 不知道写什么
+
+        <script>
+
+            let div = document.getElementById("div");//获取到div的id
+            
+            //第一步：鼠标移上去显示div
+            
+            function mouseover() {
+            
+            div.style.display = "block";
+            
+            }
+            
+            //第二步：点击空白处div消失
+            
+            document.onclick = function () {
+            
+            div.style.display = "none";
+            
+            }
+            
+            //第三步：点击自身div不消失
+            
+            div.onclick = function (e) {
+            
+            e.stopPropagation();//阻止事件冒泡
+            
+            }
+            
+            </script>
+  </body>
+</html>

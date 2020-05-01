@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>negative margin</title>
+  </head>
+  <body>
+    <style>
+      /* 圣杯布局 */
+      div {
+        height: 200px;
+      }
+      /* 圣杯1把padding 加到了middle 圣杯2把padding加到了container */
+      .middle {
+        background-color: pink;
+        width: 100%;
+        float: left;
+        box-sizing: border-box;
+        padding-left: 400px;
+        padding-right: 300px;
+      }
+      .left {
+        width: 400px;
+        background-color: blue;
+        float: left;
+        margin-left: -100%;
+      }
+      .right {
+        width: 300px;
+        background: coral;
+        float: left;
+        margin-left: -300px;
+      }
+    </style>
+    <!-- 圣杯的 HTML 结构 -->
+    <div class="container">
+      <!-- 中间的 div 必须写在最前面 -->
+      <div class="middle">中间弹性区</div>
+      <div class="left">左边栏</div>
+      <div class="right">右边栏</div>
+    </div>
+  </body>
+</html>

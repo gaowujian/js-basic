@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>今天来学习Promise</h1>
+    <script>
+      let promise = new Promise((resolve, reject) => {
+        // setTimeout(() => {
+        resolve("成功");
+        // }, 2000);
+      });
+      const p = promise.then((value) => {
+        console.log(value);
+        return p;
+      });
+
+      console.log("后盾人");
+    </script>
+  </body>
+</html>
