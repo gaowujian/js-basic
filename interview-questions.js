@@ -250,3 +250,33 @@ const testRequest = () => {
 };
 
 testRequest();
+
+let arr = [10.18, 0, 10, 25, 23];
+arr = arr.map(parseInt);
+console.log(arr);
+
+// parseInt的规则，第一个参数要先转换为string类型，第二个参数是进制数
+// parseInt("10.18",0) =>10
+// parseInt("0",1) => NAN
+// parseInt("10",2) => 0*2^0 + 1*2^1 = 2
+// parseInt("25",3) => 2*3^0 = 2   5不是3进制的合法数字
+// parseInt("23",4) => 3*4^0 + 2*4^1 = 11
+// 进制数是 2-36 不在这个范围内的全部是 NAN
+
+// 面试一
+var a = { n: 1 };
+var b = a;
+a.x = a = { n: 2 };
+console.log(a.x);
+console.log(b);
+
+// 面试二
+
+var a = 0;
+if (true) {
+  a = 1;
+  function a() {}
+  a = 21;
+  console.log(a);
+}
+console.log(a);
