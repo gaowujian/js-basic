@@ -10,7 +10,7 @@ function Timer() {
     return this.s1++;
   }, 1000);
   // 普通函数
-  setTimeout(function() {
+  setTimeout(function () {
     console.log(this);
     this.s2++;
   }, 1000);
@@ -18,8 +18,8 @@ function Timer() {
 
 var timer = new Timer();
 
-setTimeout(() => console.log("s1: ", timer.s1), 3100);
-setTimeout(() => console.log("s2: ", timer.s2), 3100);
+// setTimeout(() => console.log("s1: ", timer.s1), 3100);
+// setTimeout(() => console.log("s2: ", timer.s2), 3100);
 
 // 2 没有arguments
 // 3 不能使用 new （因为没有this，当然不能通过new创建新实例绑定this）

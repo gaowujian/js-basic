@@ -11,15 +11,15 @@
 // pipeline的的调用顺序是从做到右依次调用函数
 
 function compose(...fns) {
-  return function(x) {
-    return fns.reduceRight(function(arg, fn) {
+  return function (x) {
+    return fns.reduceRight(function (arg, fn) {
       return fn(arg);
     }, x);
   };
 }
 function pipe(...fns) {
-  return function(x) {
-    return fns.reduce(function(arg, fn) {
+  return function (x) {
+    return fns.reduce(function (arg, fn) {
       return fn(arg);
     }, x);
   };
@@ -30,10 +30,7 @@ function toUpperCase(str) {
 }
 
 function toReverse(str) {
-  return str
-    .split("")
-    .reverse()
-    .join("");
+  return str.split("").reverse().join("");
 }
 
 const composedFun = pipe(toUpperCase, toReverse);

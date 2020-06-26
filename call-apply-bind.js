@@ -12,10 +12,10 @@
 // 我们将利用下面的代码实现 以上的功能，把对象和方法拼凑起来（无米之炊），需要call方法
 
 var person = {
-  name: "tony"
+  name: "tony",
 };
 
-var showName = function() {
+var showName = function () {
   console.log(this.name);
 };
 
@@ -55,7 +55,7 @@ console.log(arr1);
 var arrayLike = {
   0: "tony",
   1: 18,
-  length: 2
+  length: 2,
 };
 console.log(arrayLike);
 console.log(Array.prototype.slice.call(arrayLike));
@@ -84,16 +84,16 @@ console.log(isArray("apple")); // false
 // 2. 执行该函数
 
 var obj = {
-  value: "tony"
+  value: "tony",
 };
 
-var showName = function(name, age) {
+var showName = function (name, age) {
   console.log(this.value);
   console.log(name);
   console.log(age);
 };
 
-Function.prototype.myCall = function(context) {
+Function.prototype.myCall = function (context) {
   var context = Object(context) || global; // context为null的话 this指向window
   context.fn = this; // 给对象添加一个函数作为属性
   var args = [];
@@ -107,7 +107,7 @@ Function.prototype.myCall = function(context) {
 };
 
 // es6
-Function.prototype.call2 = function(content = window) {
+Function.prototype.call2 = function (content = window) {
   content.fn = this;
   let args = [...arguments].slice(1);
   let result = content.fn(...args);
@@ -119,7 +119,7 @@ showName.myCall(obj, "tony", 18);
 
 //  模拟apply
 // es3
-Function.prototype.myApply = function(context, arr) {
+Function.prototype.myApply = function (context, arr) {
   context = context ? Object(context) : window;
   context.fn = this;
 
@@ -139,7 +139,7 @@ Function.prototype.myApply = function(context, arr) {
   return result;
 };
 // es6
-Function.prototype.apply2 = function(context = window) {
+Function.prototype.apply2 = function (context = window) {
   context.fn = this;
   let result;
   // 判断是否有第二个参数
@@ -156,15 +156,19 @@ Function.prototype.apply2 = function(context = window) {
 // 1. setTimeout 和 setInterval 中的 this指针丢失
 function Person(name) {
   this.name = name;
-  this.repeatMyName = function() {
-    setInterval(
-      function() {
+  this.repeatMyName = function () {
+    setTimeout(
+      function () {
         console.log(this.name); //
       }.bind(this),
       2000
     );
   };
 }
+
+Function.prototype.myBind = function myBind(params) {
+  console.log("bind");
+};
 
 var tony = new Person("tony");
 tony.repeatMyName();
