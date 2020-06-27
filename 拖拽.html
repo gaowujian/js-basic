@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      .box {
+        width: 200px;
+        height: 200px;
+        background: lightcoral;
+        cursor: move;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+    <div class="container">
+      <div class="box">
+        我是一个盒子
+      </div>
+    </div>
+
+    <script>
+      const el = document.querySelector(".box");
+      const container = document.querySelector(".container");
+      el.addEventListener("mousedown", keyDown);
+
+      function keyDown(ev) {
+        this.boxX = this.offsetLeft;
+        this.boxY = this.offsetTop;
+        this.mouseX = ev.clientX;
+        this.mouseY = ev.clientY;
+        this._mousemove = mousemove.bind(this);
+        this._mouseup = mouseup.bind(this);
+        document.body.addEventListener("mousemove", this._mousemove);
+        document.body.addEventListener("mouseup", this._mouseup);
+      }
+      function mousemove(ev) {
+        const minL = 0;
+        const maxL = document.body.clientWidth - this.offsetWidth;
+        const minT = 0;
+        const maxT = document.body.clientHeight - this.offsetHeight;
+
+        const computedL = ev.clientX - this.mouseX + this.boxX;
+        const computedT = ev.clientY - this.mouseY + this.boxY;
+        console.dir(document.body);
+        console.log(minL, maxL, computedL);
+        console.log(minT, maxT, computedT);
+
+        this.style.left =
+          computedL < minL
+            ? minL
+            : (computedL > maxL ? maxL : computedL) + "px";
+        this.style.top =
+          computedT < minT
+            ? minT
+            : (computedT > maxT ? maxT : computedT) + "px";
+
+        // this.style.left = computedL < minL ? minL : computedL + "px";
+        // this.style.top = computedT < minT ? minT : computedT + "px";
+      }
+      function mouseup() {
+        console.log("mouseup");
+        document.body.removeEventListener("mousemove", this._mousemove);
+        document.body.removeEventListener("mouseup", this._mouseup);
+      }
+    </script>
+  </body>
+</html>
