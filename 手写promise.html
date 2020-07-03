@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      class MyPromise {
+        static PENDING = "PENDING";
+        static RESOLVED = "RESOLVED";
+        static REJECTED = "REJECTED";
+        // 需要有一个executor函数用来初始化
+        constructor(executor) {
+          this.status = "PENDING";
+          this.value = "初始值";
+          try {
+            executor(this.resolve.bind(this), this.reject.bind(this));
+          } catch (error) {
+            this.reject(error);
+          }
+        }
+        resolve(value) {
+          if (this.status === MyPromise.PENDING) {
+            this.status = MyPromise.RESOLVED;
+            this.value = value;
+            console.log(this);
+          }
+        }
+        reject(error) {
+          if (this.status === MyPromise.PENDING) {
+            this.status = MyPromise.REJECTED;
+            this.error = error;
+            console.log(this);
+          }
+        }
+        then(onfulfilled = (value) => value, onrejected = (value) => value) {
+          if (this.status === MyPromise.RESOLVED) {
+          }
+          if (this.status === MyPromise.REJECTED) {
+          }
+          if (this.status === MyPromise.PENDING) {
+          }
+          onfulfilled(this.value);
+        }
+      }
+
+      const p = new MyPromise((res, rej) => {
+        setTimeout(() => {
+          res("解决");
+        }, 1000);
+      });
+
+      p.then((data) => console.log(data));
+    </script>
+  </body>
+</html>
