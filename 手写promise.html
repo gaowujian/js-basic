@@ -7,52 +7,28 @@
   </head>
   <body>
     <script>
-      class MyPromise {
-        static PENDING = "PENDING";
-        static RESOLVED = "RESOLVED";
-        static REJECTED = "REJECTED";
-        // 需要有一个executor函数用来初始化
-        constructor(executor) {
-          this.status = "PENDING";
-          this.value = "初始值";
-          try {
-            executor(this.resolve.bind(this), this.reject.bind(this));
-          } catch (error) {
-            this.reject(error);
-          }
-        }
-        resolve(value) {
-          if (this.status === MyPromise.PENDING) {
-            this.status = MyPromise.RESOLVED;
-            this.value = value;
-            console.log(this);
-          }
-        }
-        reject(error) {
-          if (this.status === MyPromise.PENDING) {
-            this.status = MyPromise.REJECTED;
-            this.error = error;
-            console.log(this);
-          }
-        }
-        then(onfulfilled = (value) => value, onrejected = (value) => value) {
-          if (this.status === MyPromise.RESOLVED) {
-          }
-          if (this.status === MyPromise.REJECTED) {
-          }
-          if (this.status === MyPromise.PENDING) {
-          }
-          onfulfilled(this.value);
-        }
+      async function async1() {
+        console.log("async1 start");
+        await new Promise((resolve) => {
+          console.log("promise1");
+        });
+        console.log("async1 success");
+        return "async1 end";
       }
-
-      const p = new MyPromise((res, rej) => {
-        setTimeout(() => {
-          res("解决");
-        }, 1000);
-      });
-
-      p.then((data) => console.log(data));
+      console.log("srcipt start");
+      async1().then((res) => console.log(res));
+      console.log("srcipt end");
     </script>
   </body>
 </html>
+
+<!-- 
+console.log("promise1里的内容");
+console.log("promise1", promise1);
+console.log("promise2", promise2);
+throw new Error("error!!!");
+console.log("timer1");
+
+console.log("timer2");
+console.log("promise1", promise1);
+console.log("promise2", promise2); -->
