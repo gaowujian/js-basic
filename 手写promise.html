@@ -11,13 +11,41 @@
         console.log("async1 start");
         await new Promise((resolve) => {
           console.log("promise1");
+          resolve("promise resolve");
         });
         console.log("async1 success");
         return "async1 end";
       }
       console.log("srcipt start");
-      async1().then((res) => console.log(res));
-      console.log("srcipt end");
+      async1().then((res) => {
+        console.log(res);
+      });
+      new Promise((resolve) => {
+        console.log("promise2");
+        setTimeout(() => {
+          console.log("timer");
+        });
+      });
+      console.dir(async1);
+      // console.log(result);
+      // async function foo1() {
+      //   return 1;
+      // }
+      // async function foo2() {
+      //   return Promise.resolve(
+      //     new Promise((res, rej) => {
+      //       res(20);
+      //     })
+      //   );
+      // }
+      // async function foo3() {
+      //   throw new Error("error");
+      // }
+      // async function foo4() {}
+      // console.log(foo1());
+      // console.log(foo2());
+      // console.log(foo3());
+      // console.log(foo4());
     </script>
   </body>
 </html>
