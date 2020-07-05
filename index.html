@@ -5,5 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <script>
+      // ES6版的柯里化函数
+      function curry(fn) {
+        console.dir(fn);
+        const g = (...allArgs) =>
+          allArgs.length >= fn.length
+            ? fn(...allArgs)
+            : (...args) => g(...allArgs, ...args);
+
+        return g;
+      }
+
+      // 测试用例
+      const foo = curry(function (a, b, c, d, e) {
+        console.log(a, b, c, d, e);
+      });
+      foo(1)(2)(3)(4)(2); // 1 2 3 4
+      const f = foo(1)(2)(3);
+      f(5); // 1 2 3 5
+    </script>
+  </body>
 </html>
