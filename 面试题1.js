@@ -117,3 +117,134 @@
 // console.log(obj);
 
 // 6. 闭包的两大用处：保存和保护
+// function a(x, y) {
+//   y = function () {
+//     x = 2;
+//   };
+//   return function () {
+//     var x = 3;
+//     y();
+//     console.log(x);
+//   }.apply(this, arguments);
+// }
+// a();
+
+// 7.数组扁平化
+
+// var arr = [1, 2, [8, 7, 1, 12, 18], [1, 6, 8, 99, [1, 3, 5, [20, 4, 5, 27]]]];
+
+// function flatMap(arr) {
+//   let result = [];
+//   for (let i = 0; i < arr.length; i++) {
+//     const element = arr[i];
+//     // console.log(element);
+//     if (!Array.isArray(element)) {
+//       result.push(element);
+//     } else {
+//       result = result.concat(flatMap(element));
+//     }
+//   }
+//   return result;
+// }
+
+// console.log(flatMap(arr));
+
+// 8. 排序（学习一个快拍）
+
+// let arr = [229, 383, 93, 3, 2, 30, 3, 31, 94, 1];
+// let newArr = arr.sort((x, y) => x - y);
+
+// console.log(newArr);
+
+// 9. 数据变形
+
+const TreeNode = {
+  val: 1,
+  left: {
+    val: 2,
+    left: {
+      val: 4,
+    },
+    right: {
+      val: 5,
+    },
+  },
+  right: {
+    val: 3,
+    left: {
+      val: 6,
+    },
+    right: {
+      val: 7,
+    },
+  },
+};
+
+function preOrderRecur(treeNode) {
+  const result = [];
+  const stack = [treeNode];
+  function preOrder() {
+    while (stack.length > 0) {
+      const node = stack.pop();
+      result.push(node.val);
+      if (node.right) stack.push(node.right);
+      if (node.left) stack.push(node.left);
+    }
+  }
+  preOrder();
+  return result;
+}
+const result = preOrderRecur(TreeNode);
+console.log(result);
+
+// 先序遍历;
+// 递归
+// function preOrderRecur(root) {
+//   const arr = [];
+//   function preOrder(root) {
+//     if (root) {
+//       arr.push(root.val);
+//       console.log(root.val);
+//     }
+//     if (root.left) preOrder(root.left);
+//     if (root.right) preOrder(root.right);
+//   }
+//   preOrder(root);
+//   return arr;
+// }
+
+// 使用栈
+// function preOrderRecur(TreeNode) {
+//   var list = [];
+//   let stack = [TreeNode];
+//   while (stack.length !== 0) {
+//     const cur = stack.pop();
+//     const right = cur.right;
+//     const left = cur.left;
+//     list.push(cur.val);
+
+//     if (right) {
+//       stack.push(right);
+//     }
+//     if (left) {
+//       stack.push(left);
+//     }
+//   }
+//   return list;
+// }
+// const result = preOrderRecur(TreeNode);
+// console.log(result);
+var loseloseHashCode = function (key) {
+  var hash = 0;
+  for (var i = 0; i < key.length; i++) {
+    hash += key.charCodeAt(i);
+    return hash % 37;
+  }
+};
+
+this.get = function (key) {
+  return table[loseloseHashCode(key)];
+};
+this.remove = function (key) {
+  table[loseloseHashCode(key)] = undefined;
+};
