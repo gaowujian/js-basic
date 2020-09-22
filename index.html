@@ -6,30 +6,15 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="container">
-      <div class="item1"></div>
-      <div class="item2"></div>
-    </div>
-    <style>
-      * {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
+    <span>1</span>
+    <button onclick="increase()">+1</button>
+    <script>
+      function increase(params) {
+        function add(number) {
+          console.log(number);
+        }
+        add(10);
       }
-      .container {
-        width: 600px;
-        height: 100px;
-        background: lightblue;
-        display: flex;
-      }
-      .item1 {
-        padding: 20px;
-        flex: 1 1 0;
-      }
-      .item2 {
-        padding: 50px;
-        flex: 1 1 400px;
-      }
-    </style>
+    </script>
   </body>
 </html>

@@ -5,22 +5,22 @@ function sayHi(name) {
   console.log(`hi ${name}`);
 }
 
-// *  es5
+// *  1. es5
 // function sleep(fn, time) {
 //   setTimeout(() => {
 //     fn();
 //   }, time);
 // }
 // 使用到了延迟执行
-//  *. 箭头函数，创建wrapper函数
+//  * 1.1 箭头函数，创建wrapper函数
 // sleep(() => sayHi("tony"), 3000);
 
-// * 2.绑定参数，因为函数内部没有使用this，可以直接帮定到null上
+// * 1.2 绑定参数，因为函数内部没有使用this，可以直接帮定到null上
 // sleep(sayHi.bind(null, "tony"), 3000);
 
-// * Promise
+// * 2 Promise
 // function sleep(time) {
-//   return new Promise(resolve =>
+//   return new Promise((resolve) =>
 //     setTimeout(() => {
 //       resolve();
 //     }, time)
@@ -48,17 +48,17 @@ function sayHi(name) {
 // * async await
 // * 有内置的执行器，不需要next，直接返回promise
 async function sleep(time) {
-  const promise = await new Promise(resolve =>
+  const result = await new Promise((resolve) =>
     setTimeout(() => {
       resolve("message");
     }, time)
   );
-  console.log("11");
-  return promise;
+
+  return result;
 }
 
-sleep(3000).then(message => {
-  sayHi(`tony${message}`);
+sleep(3000).then((message) => {
+  sayHi(`tony ${message}`);
   console.log(22);
 });
 function sayHi(name) {
