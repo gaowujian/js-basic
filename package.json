@@ -1,7 +1,6 @@
 {
   "name": "js-basic",
   "version": "1.0.0",
-  "description": "",
   "main": "browser_func.js",
   "dependencies": {
     "co": "^4.6.0",
@@ -19,5 +18,14 @@
     "start": "node number-functions.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gaowujian/js-basic.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gaowujian/js-basic/issues"
+  },
+  "homepage": "https://github.com/gaowujian/js-basic#readme",
+  "description": ""
 }
