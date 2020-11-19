@@ -4,12 +4,14 @@
   "main": "browser_func.js",
   "dependencies": {
     "co": "^4.6.0",
+    "commander": "^6.2.0",
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "lodash": "^4.17.15",
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.2",
+    "regenerator": "^0.13.1",
     "thunkify": "^2.1.2"
   },
   "devDependencies": {},
