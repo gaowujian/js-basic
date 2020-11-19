@@ -24,8 +24,14 @@ Module._extensions = {
     let exports = module.exports;
     fn.call(exports, exports, req, module, module.id, path.dirname(module.id));
   },
-  ".json": function () {},
+  ".json": function (module) {
+    let script = fs.readFileSync(module.id, "utf-8");
+    module.exports = JSON.parse(script);
+  },
 };
+
+//缓存优化
+Module._cache = {};
 
 function resolveFileName(filename) {
   //解析绝对路径
@@ -49,16 +55,6 @@ function resolveFileName(filename) {
   }
 }
 
-function req(filename) {
-  const absPath = resolveFileName(filename);
-  //   根据路径创建模块
-  const module = new Module(absPath);
-  //   加载模块, 核心内容
-  tryModuleLoad(module);
-  // 返回模块内容
-  return module.exports;
-}
-
 function tryModuleLoad(module) {
   //获取文件后缀名字
   let extname = path.extname(module.id);
@@ -66,6 +62,24 @@ function tryModuleLoad(module) {
   Module._extensions[extname](module);
 }
 
+function req(filename) {
+  // 成功获取到文件的路径
+  const absPath = resolveFileName(filename);
+  //查看缓存
+  let cache = Module._cache[absPath];
+  if (cache) return cache.exports;
+  // 没有缓存,根据路径创建新模块
+  const module = new Module(absPath);
+  // 缓存模块
+  Module._cache[absPath] = module;
+  //   加载模块, 核心内容
+  tryModuleLoad(module);
+  // 返回模块内容
+  return module.exports;
+}
+
 let str = req("./test");
+//多次加载取缓存
+str = req("./test");
 
 console.log(str);
