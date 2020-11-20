@@ -72,7 +72,8 @@ function req(filename) {
   const module = new Module(absPath);
   // 缓存模块
   Module._cache[absPath] = module;
-  //   加载模块, 核心内容
+  //   加载模块, 核心内容,
+  // 加载完之后 module.exports就有了内容,再返回，这不是一个纯函数
   tryModuleLoad(module);
   // 返回模块内容
   return module.exports;
