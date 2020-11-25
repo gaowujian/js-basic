@@ -11,6 +11,10 @@ class Promise {
     this.onRejectedCallbacks = [];
     //使用箭头函数保证this指向
     const resolve = (value) => {
+      // 用来解决 第一个promise中resolve promise的情况
+      if (value instanceof Promise) {
+        return value.then(resolve, reject);
+      }
       if (this.state === pending) {
         this.state = resolved;
         this.value = value;
