@@ -138,7 +138,8 @@ function resolvePromise(promise2, x, resolve, reject) {
 }
 
 Promise.resolve = function (param) {
-  // 首先看是不是本类，再看是不是有.then且是不是函数，如果全不是，直接resolve，修改状态，修改value值
+  // 首先看是不是本类，再看是不是有.then且是不是函数，
+  // 如果全不是，直接resolve，修改状态，修改value值
   if (param instanceof Promise) {
     return param;
   }
@@ -196,11 +197,9 @@ Promise.all = function (promises) {
         //promises[i] 可能是普通值
         Promise.resolve(promises[i]).then(
           (data) => {
-            console.log(data);
             processValue(i, data);
           },
           (err) => {
-            console.log(err);
             reject(err);
             return;
           }
