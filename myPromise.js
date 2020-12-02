@@ -118,7 +118,12 @@ class Promise {
       },
       (err) => {
         //上一次promise如果失败，resolve的时候也是先递归解析再返回
-        return Promise.reject(onFinally()).then(null, () => err);
+        // return Promise.reject(callback()).then(null, () => {
+        //   return err;
+        // });
+        return Promise.resolve(onFinally()).then(() => {
+          throw err;
+        });
       }
     );
   }
@@ -137,15 +142,15 @@ class Promise {
     }
     return new Promise((resolve, reject) => {
       if (
-        param &&
-        typeof param === "object" &&
-        typeof param.then === "function"
+        value &&
+        typeof value === "object" &&
+        typeof value.then === "function"
       ) {
         setTimeout(() => {
-          param.then(resolve, reject);
+          value.then(resolve, reject);
         });
       } else {
-        resolve(param);
+        resolve(value);
       }
     });
   }
