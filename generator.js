@@ -46,7 +46,7 @@ generator.next();
 // 实现 [Symbol.iterator]
 
 const obj = {};
-obj[Symbol.iterator] = function*() {
+obj[Symbol.iterator] = function* () {
   yield 1;
   yield 2;
   yield 3;
@@ -189,13 +189,13 @@ g.next();
 
 // 1. 回调函数
 
-readFile("/etc/text", function(err, data) {});
+readFile("/etc/text", function (err, data) {});
 // 第一段是读取文件，第二段是回调函数，嵌套的话会纵向增长，会有回调地狱的现象
 
 // 2. promise
 
 var readFile = require("fs-readfile-promise");
-readFile("/etc/text").then(data => {});
+readFile("/etc/text").then((data) => {});
 
 // 第一段是读取文件，第二段是then里的回调函数，promise把两段式分的更加清晰，链式增长而不是纵向
 
@@ -235,10 +235,10 @@ var result = g.next();
 // result是一个迭代器对象，value是一个fetchapi返回的promise对象，所以用value.then
 
 result.value
-  .then(function(data) {
+  .then(function (data) {
     return data.json();
   })
-  .then(function(data) {
+  .then(function (data) {
     g.next(data);
   });
 
@@ -252,8 +252,8 @@ result.value
 fs.readFile(fileName, callback) = Thunk(fileName)(callback);
 
 // Thunk版本的readFile（单参数版本）
-var Thunk = function(fileName) {
-  return function(callback) {
+var Thunk = function (fileName) {
+  return function (callback) {
     return fs.readFile(fileName, callback);
   };
 };
