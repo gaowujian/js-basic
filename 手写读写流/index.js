@@ -19,8 +19,11 @@ rs.on("open", function (fd) {
 
 let result = [];
 rs.on("data", function (chunk) {
-  console.log("chunk:", chunk);
   result.push(chunk);
+  rs.pause();
+  setTimeout(() => {
+    rs.resume();
+  }, 2000);
 });
 
 rs.on("end", function () {

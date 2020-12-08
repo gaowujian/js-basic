@@ -12,12 +12,14 @@ class ReadStream extends EventEmitter {
     this.end = options.end || undefined;
     this.highWaterMark = options.highWaterMark || 3;
     this.offset = 0;
+    this.flowing = false;
     //创建流的时候直接去打开文件
     this.open();
     //需要在read之前判断用户是否监听了data事件，监听之后我再读取
     // read的时候必须确保文件已经打开，有了this.fd。
     this.on("newListener", (type) => {
       if (type === "data") {
+        this.flowing = true;
         this._read();
       }
     });
@@ -27,6 +29,17 @@ class ReadStream extends EventEmitter {
       this.emit("error", err);
     }
   }
+  pause() {
+    this.flowing = false;
+  }
+
+  resume() {
+    if (!this.flowing) {
+      this.flowing = true;
+      this._read();
+    }
+  }
+
   open() {
     fs.open(this.path, this.flags, (err, fd) => {
       if (err) {
@@ -58,24 +71,27 @@ class ReadStream extends EventEmitter {
     let howMuchToRead = this.end
       ? Math.min(this.highWaterMark, this.end - this.offset + 1)
       : this.highWaterMark;
-    fs.read(
-      this.fd,
-      buffer,
-      0,
-      howMuchToRead,
-      this.offset,
-      (err, bytesRead) => {
-        //等价于源码中的this.push()
-        //切割最后一次的buffer有用
-        if (bytesRead > 0) {
-          this.emit("data", buffer.slice(0, bytesRead));
-          this.offset += bytesRead;
-          this._read();
-        } else {
-          this.emit("end");
+    if (this.flowing) {
+      fs.read(
+        this.fd,
+        buffer,
+        0,
+        howMuchToRead,
+        this.offset,
+        (err, bytesRead, buffer) => {
+          //等价于源码中的this.push()
+          //切割最后一次的buffer有用
+          if (bytesRead > 0) {
+            this.emit("data", buffer.slice(0, bytesRead));
+            console.log(buffer);
+            this.offset += bytesRead;
+            this._read();
+          } else {
+            this.emit("end");
+          }
         }
-      }
-    );
+      );
+    }
   }
 }
 
