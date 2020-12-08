@@ -14,7 +14,6 @@ const rs = new ReadStream(path.resolve(__dirname, "1.txt"), {});
 //注册open
 rs.on("open", function (fd) {
   console.log("外部订阅的open");
-  console.log("fd", fd);
 });
 
 let result = [];
@@ -23,9 +22,13 @@ rs.on("data", function (chunk) {
   rs.pause();
   setTimeout(() => {
     rs.resume();
-  }, 2000);
+  }, 1000);
 });
 
 rs.on("end", function () {
   console.log(Buffer.concat(result).toString());
+});
+
+rs.on("close", function () {
+  console.log("close");
 });

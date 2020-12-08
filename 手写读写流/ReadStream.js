@@ -28,6 +28,9 @@ class ReadStream extends EventEmitter {
     if (err) {
       this.emit("error", err);
     }
+    if (typeof this.fd === "number") {
+      this.emit("close");
+    }
   }
   pause() {
     this.flowing = false;
@@ -78,16 +81,17 @@ class ReadStream extends EventEmitter {
         0,
         howMuchToRead,
         this.offset,
-        (err, bytesRead, buffer) => {
+        (err, bytesRead) => {
           //等价于源码中的this.push()
           //切割最后一次的buffer有用
           if (bytesRead > 0) {
             this.emit("data", buffer.slice(0, bytesRead));
-            console.log(buffer);
+            console.log(buffer.slice(0, bytesRead));
             this.offset += bytesRead;
             this._read();
           } else {
             this.emit("end");
+            this.destroy();
           }
         }
       );
