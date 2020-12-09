@@ -7,7 +7,7 @@ const ws = new WriteStream(path.resolve(__dirname, "2.txt"), {
   mode: 0o666,
   autoClose: "true",
   start: 0,
-  highWaterMark: 3,
+  highWaterMark: 5,
 });
 
 // const ws = fs.createWriteStream(path.resolve(__dirname, "2.txt"), {
@@ -23,6 +23,9 @@ const ws = new WriteStream(path.resolve(__dirname, "2.txt"), {
 
 let i = 0;
 write();
+
+//外面可以获取到设置了highwatermark之后，写文件的反馈结果
+
 function write() {
   let writing = true;
 
@@ -31,6 +34,11 @@ function write() {
     const content = i.toString();
     i++;
     writing = ws.write(content);
+    //外侧控制是否要去写入
     if (!writing) break;
   }
 }
+
+ws.on("drain", () => {
+  write();
+});
