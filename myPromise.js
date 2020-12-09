@@ -146,10 +146,15 @@ class Promise {
         typeof value === "object" &&
         typeof value.then === "function"
       ) {
-        setTimeout(() => {
-          value.then(resolve, reject);
-        });
+        () => {
+          value.then(() => {
+            console.log("内部then1");
+            resolve();
+          }, reject);
+        };
       } else {
+        console.log("内部then2");
+
         resolve(value);
       }
     });
@@ -218,17 +223,22 @@ function resolvePromise(promise2, x, resolve, reject) {
     let called = false;
     try {
       const then = x.then;
+      console.log("内部resolvePromise");
       if (typeof then === "function") {
         then.call(
           x,
           (r) => {
             if (called) return;
             called = true;
+            console.log("内部resolvePromise: onFullfiled");
+
             resolvePromise(promise2, r, resolve, reject);
           },
           (err) => {
             if (called) return;
             called = true;
+            console.log("内部resolvePromise: onrejected");
+
             reject(err);
           }
         );
