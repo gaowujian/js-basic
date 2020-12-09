@@ -52,17 +52,18 @@ class ReadStream extends EventEmitter {
       this.fd = fd;
       //只有在fs open的回调触发完成后,之后才能确保 this.fd = fd, 这时候在read函数内才能正确
       //拿到this.fd或者通过传参拿到fd
-      this.emit("open", fd);
+      this.emit("fd", fd);
       //源码里是打开之后立即开始读取，现在的做法是先监听用户是否有data事件再去读取
       //   this._read(fd)
     });
   }
 
   //同步执行，虽然执行得快，但是数据没到，所以去订阅事件，等到时机恰当再重新调用该方法
+  //开始真正的读取，但是因为没有fd所以要等待，直到open事件的回调拿到fd再回来，
+  //为了不和open事件混淆，这里我们使用了一个名为fd的事件
   _read() {
     if (typeof this.fd !== "number") {
-      return this.once("open", () => {
-        console.log("内部订阅的open");
+      return this.once("fd", () => {
         this._read();
       });
     }

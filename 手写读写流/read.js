@@ -17,6 +17,8 @@ rs.on("open", function (fd) {
 });
 
 let result = [];
+//触发内部的_read开始真正读取
+//on事件就可以触发函数的执行，是通过了addListener
 rs.on("data", function (chunk) {
   result.push(chunk);
   rs.pause();
