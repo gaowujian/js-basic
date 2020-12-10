@@ -39,6 +39,7 @@ class WriteStream extends EventEmitter {
   }
   //假写入，在这里做排队处理
   write(chunk, encoding = this.encoding, cb = () => {}) {
+    console.log(typeof chunk);
     chunk = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
     this.len += chunk.length;
 
@@ -77,7 +78,7 @@ class WriteStream extends EventEmitter {
       //递归去处理缓存中的数据
       cb();
     });
-    // console.log("this.cache:", this.cache);
+    console.log("this.cache:", this.cache);
   }
   //用于清理缓存，把cache中的第一个数据拿到,然后写入，然后再去递归
   clearBuffer() {
