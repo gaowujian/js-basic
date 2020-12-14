@@ -6,45 +6,91 @@ const path = require("path");
 //     console.log(err);
 //   });
 
-function rmdir(name, callback) {
-  const filePath = path.resolve(__dirname, name);
+// function rmdir(name, callback) {
+//   const filePath = path.resolve(__dirname, name);
+//   fs.stat(filePath, (err, stat) => {
+//     if (err) {
+//       console.log("查看文件状态错误 err:", err);
+//     }
+//     //   如果是文件直接删除
+//     if (stat.isFile()) {
+//       fs.unlink(filePath, () => {
+//         console.log("删除文件", filePath);
+//         console.dir(callback);
+//         callback();
+//       });
+//     } else {
+//       // 如果是目录，先获取目录下所有的文件和目录
+//       fs.readdir(filePath, { encoding: "utf-8" }, (err, files) => {
+//         if (err) {
+//           console.log("readdir读取目录 err:", err);
+//         }
+//         files = files.map((file) => path.join(name, file));
+
+//         // 每当对一个目录进行操作的时候，都有一个新的index标示已经操作过的数量
+//         let index = 0;
+//         function next() {
+//           // 和promise一样，使用计数器进行累加方法，在文件全部删除之后，才去删除本身目录
+//           // 没有这两行,只会删除文件，而不会删除文件夹
+//           if (index === files.length) {
+//             return fs.rmdir(filePath, () => {
+//               console.log("删除目录", filePath);
+//               callback();
+//             });
+//           }
+//           let current = files[index++];
+//           rmdir(current, next);
+//         }
+//         next();
+//       });
+//     }
+//   });
+// }
+// // 只有第一次rmdir传入的callback是打印目录删除成功，之后的都是next
+// rmdir("a", (err) => {
+//   if (err) {
+//     console.log(err);
+//   }
+//   console.log("目录删除成功");
+// });
+
+function rmdir(dir) {
+  const filePath = path.resolve(__dirname, dir);
   fs.stat(filePath, (err, stat) => {
     if (err) {
       console.log("查看文件状态错误 err:", err);
     }
-    //   如果是文件直接删除
+    // 如果是一个文件，我们直接删除
     if (stat.isFile()) {
-      fs.unlink(filePath, callback);
+      return fs.unlink(filePath);
     } else {
-      // 如果是目录，先获取所有
-      fs.readdir(filePath, { encoding: "utf-8" }, (err, files) => {
+      //广度优先遍历，维护一个目录名的栈
+      const stack = [dir];
+      //指针，会移动，按照广度优先遍历的顺序，把所有的目录压入栈中
+      let index = 0;
+      fs.readdir(path.resolve(__dirname, stack[index]), (err, files) => {
         if (err) {
-          console.log("readdir读取目录 err:", err);
+          console.log("readdir:", err);
         }
-        files = files.map((file) => path.join(name, file));
-
-        // 遍历每一项，递归调用rmDir
-        // for (let i = 0; i < files.length; i++) {
-        //   const file = files[i];
-        //   rmdir(file, callback);
-        // }
-        // 和promise一样，使用计数器进行累加方法，在文件全部删除之后，才去删除本身目录
-        let index = 0;
         function next() {
-          if (index === files.length) {
-            return fs.rmdir(filePath, callback);
-          }
-          let current = files[index++];
-          rmdir(current, next);
+          dir = stack[index++];
+          //栈空的时候返回终止递归
+          if (!dir) return console.log(stack);
+          console.log("dir:", dir);
+          fs.readdir(dir, (err, dirs) => {
+            dirs = dirs.map((d) => path.join(dir, d));
+            stack.push(...dirs);
+            next();
+          });
+          // for (let i = 0; i < files.length; i++) {
+          //     const file = files[i];
+          //     if(fs)
+          // }
         }
         next();
       });
     }
   });
 }
-rmdir("a", (err) => {
-  if (err) {
-    console.log(err);
-  }
-  console.log("删除成功");
-});
+
+rmdir("a");
