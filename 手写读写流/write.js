@@ -7,7 +7,7 @@ const ws = new WriteStream(path.resolve(__dirname, "2.txt"), {
   mode: 0o666,
   autoClose: "true",
   start: 0,
-  highWaterMark: 5,
+  highWaterMark: 3,
 });
 
 // const ws = fs.createWriteStream(path.resolve(__dirname, "2.txt"), {
@@ -30,7 +30,7 @@ function write() {
   let writing = true;
 
   for (; i < 10; ) {
-    console.log("i:", i);
+    // console.log("i:", i);
     const content = i.toString();
     i++;
     writing = ws.write(content);
@@ -40,5 +40,6 @@ function write() {
 }
 
 ws.on("drain", () => {
+  console.log('drain');
   write();
 });

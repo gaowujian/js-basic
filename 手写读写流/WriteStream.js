@@ -1,7 +1,5 @@
 const EventEmitter = require("events");
-const fs = require("fs");
-const { chunk } = require("lodash");
-const { emit } = require("process");
+const fs = require("fs"); 
 class WriteStream extends EventEmitter {
   constructor(path, options) {
     super();
@@ -15,7 +13,7 @@ class WriteStream extends EventEmitter {
 
     //
     this.writing = false; // 表示是否可以往文件中写入，第一次调用write的时候需要执行fs.write方法,之后的先放在内存
-    this.len = 0; // 表示还未写入文件，但是已经读取的文件大小
+    this.len = 0; // 表示还未写入文件，但是已经读取的文件大小, 缓存内的数据大小
     this.needDrain = false; // 是否需要触发drain事件
     this.offset = 0; //表示已经写入的总的文件大小
     this.cache = []; //缓存空间
@@ -39,7 +37,7 @@ class WriteStream extends EventEmitter {
   }
   //假写入，在这里做排队处理
   write(chunk, encoding = this.encoding, cb = () => {}) {
-    console.log(typeof chunk);
+    // console.log(typeof chunk);
     chunk = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
     this.len += chunk.length;
 
@@ -78,7 +76,7 @@ class WriteStream extends EventEmitter {
       //递归去处理缓存中的数据
       cb();
     });
-    console.log("this.cache:", this.cache);
+    // console.log("this.cache:", this.cache);
   }
   //用于清理缓存，把cache中的第一个数据拿到,然后写入，然后再去递归
   clearBuffer() {
