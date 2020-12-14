@@ -54,7 +54,7 @@ const path = require("path");
 //   console.log("目录删除成功");
 // });
 
-function rmdir(dir) {
+function rmdir(dir, callback) {
   const filePath = path.resolve(__dirname, dir);
   fs.stat(filePath, (err, stat) => {
     if (err) {
@@ -68,6 +68,25 @@ function rmdir(dir) {
       const stack = [dir];
       //指针，会移动，按照广度优先遍历的顺序，把所有的目录压入栈中
       let index = 0;
+      function reverseStack() {
+        let ldx = stack.length - 1;
+        function next() {
+          if (ldx < 0) return callback();
+          let cur = stack[ldx--];
+          fs.stat(path.resolve(__dirname, cur), (err, stats) => {
+            if (stats.isFile()) {
+              fs.unlink("删除文件", cur);
+              next();
+            } else {
+              fs.rmdir(cur, () => {
+                console.log("删除目录", cur);
+                next();
+              });
+            }
+          });
+        }
+        next();
+      }
       fs.readdir(path.resolve(__dirname, stack[index]), (err, files) => {
         if (err) {
           console.log("readdir:", err);
@@ -75,8 +94,7 @@ function rmdir(dir) {
         function next() {
           dir = stack[index++];
           //栈空的时候返回终止递归
-          if (!dir) return console.log(stack);
-          console.log("dir:", dir);
+          if (!dir) return reverseStack();
           fs.readdir(dir, (err, dirs) => {
             dirs = dirs.map((d) => path.join(dir, d));
             stack.push(...dirs);
@@ -93,4 +111,6 @@ function rmdir(dir) {
   });
 }
 
-rmdir("a");
+rmdir("a", () => {
+  console.log("目录递归删除完成");
+});
