@@ -37,6 +37,7 @@ client.on("error", (err) => {
 client.on("end", () => {
   // tcp链接结束
   console.log("connection end");
+  // 解析页面的操作，这里先使用了写入本地文件的操作
   const htmlContent = allBuffer.toString();
   const ws = fs.createWriteStream(
     path.resolve(__dirname, "ying-shi-tong.html")
