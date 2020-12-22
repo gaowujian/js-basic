@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <script>
+      function backToTop() {
+        const main = document.querySelector("main");
+        // while (main.scrollTop > 0) {
+        //   console.log(main.scrollTop);
+        //   requestAnimationFrame(() => {
+        //     main.scrollTop -= 1;
+        //   });
+        // }
+
+        function next() {
+          requestAnimationFrame(() => {
+            main.scrollTop -= 10;
+            if (main.scrollTop > 0) {
+              next();
+            } else {
+              return;
+            }
+          });
+        }
+        next();
+        // const t = setInterval(() => {
+        //   if (main.scrollTop > 0) {
+        //     main.scrollTop -= 1;
+        //   } else {
+        //     clearInterval(t);
+        //   }
+        // });
+      }
+    </script>
+    <main>
+      <div>内容盒子</div>
+      <button onclick="backToTop()">back to top</button>
+    </main>
+
+    <script src="./index.js"></script>
+  </body>
+</html>
