@@ -38,6 +38,8 @@ client.on("end", () => {
   // tcp链接结束
   console.log("connection end");
   // 解析页面的操作，这里先使用了写入本地文件的操作
+  // 实际上，我们先要有http-parser把传回来的二进制数据转化为字符串
+  // 然后还有htmlparser去解析字符串模版
   const htmlContent = allBuffer.toString();
   const ws = fs.createWriteStream(
     path.resolve(__dirname, "ying-shi-tong.html")
