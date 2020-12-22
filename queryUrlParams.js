@@ -1,18 +1,24 @@
 // 正则表达式之划分URL字符串
-// String.prototype.queryUrlParams = function () {
-//   var result = {};
-//   var reg = /([^?=#&]+)=([^?=#&]+)/g;
-//   this.replace(reg, (...[, $1, $2]) => {
-//     result[$1] = $2;
-//   });
-//   reg = /#([^?=#&]+)/g;
-//   this.replace(reg, (...[, $1]) => {
-//     result["HASH"] = $1;
-//   });
-//   return result;
-// };
+String.prototype.queryUrlParams = function () {
+  var result = {};
+  var reg = /([^?=#&]+)=([^?=#&]+)/g;
+  this.replace(reg, (...[, $1, $2]) => {
+    result[$1] = $2;
+  });
+  reg = /#([^?=#&]+)/g;
+  this.replace(reg, (...[, $1]) => {
+    result["HASH"] = $1;
+  });
+  return result;
+};
+const str = "http://www.graphicsmagick.org/utilities.html?name=111";
 
-// console.log(str.queryUrlParams());
+console.log(str.queryUrlParams());
+
+const searchParams = new URL(
+  "http://www.graphicsmagick.org/utilities.html?name=111"
+).searchParams;
+console.log(searchParams);
 
 // 正则表达式之解析json串
 
