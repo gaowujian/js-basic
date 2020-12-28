@@ -1,4 +1,22 @@
 window.onload = function () {
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", "https://jsonplaceholder.typicode.com/todos/1");
+  // xhr.onload = function (...args) {
+  //   console.log(args);
+  // };
+  // xhr.responseType = "application/json";
+  xhr.onreadystatechange = function (e) {
+    if (e.target.readyState === 4) {
+      const target = e.target;
+      console.log("target.response:", target.response);
+      console.log("target.responseText:", target.responseText);
+      console.log("target.responseType:", target.responseType);
+      console.log("target.responseURL:", target.responseURL);
+      console.log("target.responseXML:", target.responseXML);
+    }
+  };
+  xhr.send();
+
   const div = document.querySelector("div");
   const clientWidth = `clientWidth:${div.clientWidth}\r\n`;
   const clientHeight = `clientHeight:${div.clientHeight}\r\n`;

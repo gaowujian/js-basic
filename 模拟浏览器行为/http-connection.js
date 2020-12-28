@@ -1,9 +1,10 @@
 const net = require("net");
 const fs = require("fs");
 const path = require("path");
-
+const HttpParser = require("./http-parser")
 const destPort = 3000;
-const destHost = "223.71.203.2";
+const destHost = "localhost";
+
 
 let allBuffer = null;
 
@@ -21,8 +22,26 @@ const client = net.createConnection(destPort, destHost, function () {
 
 client.on("data", function (data) {
   console.log("client receive data ========================================");
-  console.log("");
+
+
+  var parser = require('http-string-parser');
+ 
+  console.log(Object.prototype.toString.call(data));
+  console.log(data)
   console.log(data.toString());
+  request = parser.parseRequest(data.toString());
+  response = parser.parseResponse("str");
+   
+  console.log(request);
+  console.log(response);
+
+  const httpParser = new HttpParser()
+  console.log("26",data);
+  httpParser.parse(data)
+  console.log("client start parse html data ========================================");
+  console.log(httpParser.result);
+  console.log("client finish parse ========================================");
+
   if (!allBuffer) {
     allBuffer = data;
   } else {

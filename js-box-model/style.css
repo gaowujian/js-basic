@@ -17,11 +17,13 @@ main {
 }
 div {
   padding: 20px;
-  margin: 10px;
-  border: 10px solid blue;
+  margin: 40px;
+  border: 40px solid blue;
   height: 2000px;
   width: 30px;
-
+  position: absolute;
+  top: 100px;
+  left: 100px;
   background-color: lightblue;
   overflow: auto;
   /* box-sizing: border-box; */
@@ -32,3 +34,6 @@ button {
   right: 30px;
   bottom: 100px;
 }
+
+/* var div = document.querySelector("div") 
+div.getBoundingClientRect() */
