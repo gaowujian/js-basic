@@ -1,23 +1,37 @@
 window.onload = function () {
-  const xhr = new XMLHttpRequest();
-  xhr.open("GET", "https://jsonplaceholder.typicode.com/todos/1");
-  // xhr.onload = function (...args) {
-  //   console.log(args);
+  // const xhr = new XMLHttpRequest();
+  // xhr.open("GET", "https://jsonplaceholder.typicode.com/todos/1");
+  // // xhr.onload = function (...args) {
+  // //   console.log(args);
+  // // };
+  // // xhr.responseType = "application/json";
+  // xhr.onreadystatechange = function (e) {
+  //   if (e.target.readyState === 4) {
+  //     const target = e.target;
+  //     console.log("target.response:", target.response);
+  //     console.log("target.responseText:", target.responseText);
+  //     console.log("target.responseType:", target.responseType);
+  //     console.log("target.responseURL:", target.responseURL);
+  //     console.log("target.responseXML:", target.responseXML);
+  //   }
   // };
-  // xhr.responseType = "application/json";
-  xhr.onreadystatechange = function (e) {
-    if (e.target.readyState === 4) {
-      const target = e.target;
-      console.log("target.response:", target.response);
-      console.log("target.responseText:", target.responseText);
-      console.log("target.responseType:", target.responseType);
-      console.log("target.responseURL:", target.responseURL);
-      console.log("target.responseXML:", target.responseXML);
+  // xhr.send();
+  const section = document.querySelector("section");
+  function offsetTL(obj) {
+    //获取到body的offsetTop和offsetLeft
+    var t = 0,
+      l = 0;
+    while (obj) {
+      t = t + obj.offsetTop;
+      l = l + obj.offsetLeft;
+      obj = obj.offsetParent;
     }
-  };
-  xhr.send();
+    return { top: t, left: l };
+  }
+  console.log(offsetTL(section));
 
-  const div = document.querySelector("div");
+  console.log(section.getBoundingClientRect());
+  const div = document.querySelector(".content");
   const clientWidth = `clientWidth:${div.clientWidth}\r\n`;
   const clientHeight = `clientHeight:${div.clientHeight}\r\n`;
   const clientTop = `clientTop:${div.clientTop}\r\n`;
@@ -29,8 +43,11 @@ window.onload = function () {
   const scrollHeight = `scrollHeight:${div.scrollHeight}\r\n`;
   const parentElement = `scrollHeight:${div.offsetParent}\r\n`;
 
-  console.log("div.offsetParent", div.offsetParent);
+  console.log("div.offsetParent", div.offsetParent); // div是绝对定位 body
+  //如果取消绝对定位 20 + 10 + 20 + 30 + 40 = 120px
+  //如果有绝对定位 100 + 40 margin = 140px
   console.log("div.offsetTop", div.offsetTop);
+
   console.log("div.offsetLeft", div.offsetLeft);
 
   console.log("div.clientWidth", div.clientWidth);
