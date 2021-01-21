@@ -16,22 +16,12 @@ window.onload = function () {
   //   }
   // };
   // xhr.send();
-  const section = document.querySelector("section");
-  function offsetTL(obj) {
-    //获取到body的offsetTop和offsetLeft
-    var t = 0,
-      l = 0;
-    while (obj) {
-      t = t + obj.offsetTop;
-      l = l + obj.offsetLeft;
-      obj = obj.offsetParent;
-    }
-    return { top: t, left: l };
-  }
-  console.log(offsetTL(section));
 
-  console.log(section.getBoundingClientRect());
   const div = document.querySelector(".content");
+  const span = document.querySelector("span");
+
+  console.log(span.getClientRects());
+
   const clientWidth = `clientWidth:${div.clientWidth}\r\n`;
   const clientHeight = `clientHeight:${div.clientHeight}\r\n`;
   const clientTop = `clientTop:${div.clientTop}\r\n`;
@@ -70,7 +60,9 @@ window.onload = function () {
     scrollWidth +
     scrollHeight +
     parentElement;
-
+  const h1 = document.querySelector("h1");
+  console.log("h1");
+  console.log(h1.getBoundingClientRect());
   function offset(curEle) {
     let totalLeft = 0;
     let totalTop = 0;

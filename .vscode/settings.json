@@ -1,8 +1,8 @@
 {
-    "files.associations": {
-        "iostream": "cpp",
-        "ostream": "cpp"
-    },
-    "C_Cpp.errorSquiggles": "Enabled",
-    "liveServer.settings.port": 5501
+  "files.associations": {
+    "iostream": "cpp",
+    "ostream": "cpp"
+  },
+  "C_Cpp.errorSquiggles": "Enabled",
+  "liveServer.settings.port": 5501
 }

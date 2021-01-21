@@ -21,11 +21,11 @@ div {
   border: 40px solid blue;
   height: 2000px;
   width: 30px;
-  position: absolute;
+  /* position: absolute; */
   top: 100px;
   left: 100px;
   background-color: lightblue;
-  overflow: auto;
+
   /* box-sizing: border-box; */
 }
 

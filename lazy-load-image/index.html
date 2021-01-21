@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      div {
+        height: 600px;
+      }
+      img {
+        display: block;
+        height: 200px;
+        width: 200px;
+      }
+    </style>
+    <h1>原理是基于</h1>
+    <p>window.clientHeight + window.scrollTop >= offsetTop</p>
+    <div></div>
+    <img src="" alt="图片1" /><br />
+    <img src="" alt="图片2" /><br />
+    <img src="" alt="图片3" /><br />
+    <script>
+      const images = document.images;
+      Array.from(images).forEach((image) => {
+        image.loaded = false;
+      });
+      let acc = 0;
+      const ele = document.documentElement;
+      window.addEventListener("scroll", () => {
+        const height = parseInt(ele.clientHeight) + parseInt(ele.scrollTop);
+        for (let i = 0; i < images.length; i++) {
+          const image = images[i];
+          if (!image.loaded) {
+            const top = image.offsetTop;
+
+            if (height >= top) {
+              images[acc].src = `/lazy-load-image/images/${acc + 1}.jpeg`;
+              image.loaded = true;
+              acc += 1;
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
