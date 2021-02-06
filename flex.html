@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .container {
+        background-color: antiquewhite;
+        width: 500px;
+        height: 500px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        /* 在每一行自己的区域内进行垂直方向的对齐 */
+        /* align-items: center; */
+        /* 如果有多行，默认把交叉轴全部占满,如果有两行，每一行占50% */
+        /* align-content: stretch; */
+      }
+      .item {
+        width: 100px;
+        height: 100px;
+        flex-shrink: 0;
+      }
+    </style>
+
+    <div class="container">
+      <div class="item" style="background-color: #1abc9c">1</div>
+      <div class="item" style="background-color: #2980b9">2</div>
+      <div class="item" style="background-color: #e74c3c">3</div>
+      <div class="item" style="background-color: #9b59b6">4</div>
+      <div class="item" style="background-color: #f1c40f">5</div>
+      <div class="item" style="background-color: #2980b9">6</div>
+      <div class="item" style="background-color: #e74c3c">7</div>
+    </div>
+  </body>
+</html>
