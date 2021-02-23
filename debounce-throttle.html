@@ -12,19 +12,20 @@
       div {
         height: 500px;
         background-color: coral;
+        font-size: 40px;
       }
     </style>
     <script>
       var elem = document.querySelector("div");
       var number = 0;
-
-      var count = function() {
-        this.innerHTML = number++;
+      const text = elem.innerText;
+      var count = function () {
+        this.innerHTML = text + number++;
       };
-      var debounce = function(func, wait) {
+      var debounce = function (func, wait) {
         let timeout;
         // console.log(this);
-        return function() {
+        return function () {
           let context = this;
           let args = arguments;
 
@@ -38,7 +39,7 @@
       };
       function throttle(func, wait) {
         let timeout;
-        return function() {
+        return function () {
           let context = this;
           let args = arguments;
           if (!timeout) {
@@ -49,7 +50,7 @@
           }
         };
       }
-      elem.addEventListener("mousemove", debounce(count, 2000));
+      elem.addEventListener("mousemove", debounce(count, 1000));
       // elem.addEventListener("mousemove", count);
     </script>
   </body>
