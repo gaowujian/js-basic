@@ -23,7 +23,7 @@ console.log(map.size);
 let recipeMap = new Map([
   ["cucumber", 500],
   ["tomatoes", 350],
-  ["onion", 50]
+  ["onion", 50],
 ]);
 
 // 迭代键（vegetables）
@@ -83,7 +83,7 @@ console.log(set.size);
 // 对于 map 和set 他们的返回值是 迭代器对象  而 Object返回的是真正的 数组
 var map = new Map([
   ["name", "tony"],
-  [{ name: "jingjing" }, 18]
+  [{ name: "jingjing" }, 18],
 ]);
 
 for (let [key, value] of map.entries()) {
@@ -93,7 +93,7 @@ for (let [key, value] of map.entries()) {
 let salaries = {
   John: 100,
   Pete: 300,
-  Mary: 250
+  Mary: 250,
 };
 
 function topSalary(salaries) {
