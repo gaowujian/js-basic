@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <style>
+      div {
+        width: 100px;
+        height: 100px;
+        background-color: lightcoral;
+      }
+      body {
+        height: 2000px;
+      }
+    </style>
+    <script>
+      window.addEventListener("resize", function (e) {
+        console.log("resize event 触发");
+      });
+      window.addEventListener("scroll", function (e) {
+        console.log("scroll event 触发");
+      });
+      const element = document.getElementById("root");
+      let start;
+
+      function step(timestamp) {
+        if (start === undefined) start = timestamp;
+        const elapsed = timestamp - start;
+
+        //这里使用`Math.min()`确保元素刚好停在200px的位置。
+        element.style.transform = "translateX(" + Math.min(0.1 * elapsed, 200) + "px)";
+        console.log("执行requestAnimationFrame事件");
+        if (elapsed < 2000) {
+          // 在两秒后停止动画
+          window.requestAnimationFrame(step);
+        }
+      }
+
+      // 下一次重绘之前更新动画帧所调用的函数(即上面所说的回调函数)。
+      // 该回调函数会被传入DOMHighResTimeStamp参数，该参数与performance.now()的返回值相同，
+      // 它表示requestAnimationFrame() 开始去执行回调函数的时刻。
+      window.requestAnimationFrame(step);
+
+      // 一个在事件循环空闲时即将被调用的函数的引用。
+      // 函数会接收到一个名为 IdleDeadline 的参数，这个参数可以获取当前空闲时间以及回调是否在超时时间前已经执行的状态。
+      window.requestIdleCallback(function (IdleDeadline) {
+        console.log("IdleDeadline:", IdleDeadline);
+        console.log("是否超时:", IdleDeadline.didTimeout);
+      });
+    </script>
+  </body>
+</html>

@@ -7,10 +7,12 @@
     <title>Document</title>
   </head>
   <body>
-    <div>鼠标可以滑动的区域:</div>
+    <h1>鼠标可以在橙色区域滑动</h1>
+    <div></div>
     <style>
       div {
-        height: 500px;
+        height: 400px;
+        width: 400px;
         background-color: coral;
       }
     </style>
@@ -18,13 +20,13 @@
       var elem = document.querySelector("div");
       var number = 0;
 
-      var count = function() {
+      var count = function () {
         this.innerHTML = number++;
       };
-      var debounce = function(func, wait) {
+      var debounce = function (func, wait) {
         let timeout;
         // console.log(this);
-        return function() {
+        return function () {
           let context = this;
           let args = arguments;
 
@@ -38,7 +40,7 @@
       };
       function throttle(func, wait) {
         let timeout;
-        return function() {
+        return function () {
           let context = this;
           let args = arguments;
           if (!timeout) {

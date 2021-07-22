@@ -1,25 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
+<html>
   <body>
-    <script src="https://cdn.bootcdn.net/ajax/libs/qs/6.10.1/qs.js"></script>
+    <!--
+一:定义模板
+二:定义内部 CSS 样式 三:定义 JavaScript 行为
+-->
+    <template id="geekbang-t">
+      <style>
+        p {
+          color: cornsilk;
+        }
+        div {
+          width: 200px;
+          background-color: bisque;
+          border: 3px solid chocolate;
+          border-radius: 10px;
+          background-color: brown;
+        }
+      </style>
+      <div>
+        <p>time.geekbang.org</p>
+        <p>time1.geekbang.org</p>
+      </div>
+      <script>
+        function foo() {
+          console.log("inner log");
+        }
+      </script>
+    </template>
     <script>
-      const arr = ["device1", "device2"];
-      console.log("arr:", arr);
-      var qs = Qs;
-      const result = qs.stringify(arr);
-      console.log("qs:", result);
-      const result2 = arr.toString();
-      console.log("原生:", result2);
-      const obj = {
-        name: "tony",
-      };
-      console.log("obj.toString():", obj.toString());
+      class GeekBang extends HTMLElement {
+        constructor() {
+          super();
+          // 获取组件模板
+          const content = document.querySelector("#geekbang-t").content; // 创建影子 DOM 节点
+          const shadowDOM = this.attachShadow({ mode: "open" });
+          // 将模板添加到影子 DOM 上 shadowDOM.appendChild(content.cloneNode(true))
+        }
+      }
+      customElements.define("geek-bang", GeekBang);
     </script>
+
+    <geek-bang></geek-bang>
+    <div>
+      <p>time.geekbang.org</p>
+      <p>time1.geekbang.org</p>
+    </div>
+    <geek-bang></geek-bang>
+
+    <!-- <img src="http://localhost:3000" alt="" /> -->
+    <script src="http://localhost:3000"></script>
+    <!-- <script>
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", "http://localhost:3000");
+      xhr.onreadystatechange = function (e) {
+        console.log("e:", e);
+      };
+      xhr.send();
+    </script> -->
   </body>
 </html>
