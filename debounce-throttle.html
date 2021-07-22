@@ -20,15 +20,9 @@
     <script>
       var elem = document.querySelector("div");
       var number = 0;
-<<<<<<< HEAD
-
-      var count = function () {
-        this.innerHTML = number++;
-=======
       const text = elem.innerText;
       var count = function () {
         this.innerHTML = text + number++;
->>>>>>> 7c2952abfa6b7cd43d5f3dc8991cec9b3197ef8c
       };
       var debounce = function (func, wait) {
         let timeout;
