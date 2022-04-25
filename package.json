@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "browser_func.js",
   "dependencies": {
+    "@gwjlshebei/simple-event-emitter": "^1.0.2",
     "babel-cli": "^6.26.0",
     "co": "^4.6.0",
     "commander": "^6.2.0",

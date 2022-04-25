@@ -27,22 +27,26 @@
 const EventEmitter = require("events");
 const event = new EventEmitter();
 
-const fn1 = (...args) => {
-  console.log("fn1:", ...args);
+const fn = function (a, b) {
+  console.log(111);
 };
-const fn2 = (...args) => {
-  console.log("fn1:", ...args);
-};
-event.once("data2", () => {
-  fn1(123);
-});
-event.on("newListener", (type, callback) => {
-  console.log(type, callback);
-});
-event.on("data", fn2);
-// event.off("data", fn1);
-event.emit("data", 1, 2, 3);
-// event.off("data", fn1);
-console.log("========================");
 
-// event.emit("data", 1, 2, 3);
+event.addListener("newListener", (eventName, ...args) => {
+  console.log("第一个监听器:", eventName);
+});
+
+// event.addListener("newListener", (eventName, ...args) => {
+//   console.log("第二个监听器:", eventName);
+//   // console.log("...args:", ...args);
+// });
+// event.addListener("newListener", (eventName, ...args) => {
+//   console.log("第三个监听器:", eventName);
+//   // console.log("...args:", ...args);
+// });
+event.emit("break", "a", "b");
+
+event.addListener("break", fn);
+event.addListener("break", fn);
+event.addListener("break", fn);
+
+console.log("event.events:", event._events);
