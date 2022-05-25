@@ -24,9 +24,6 @@ let result = [];
 rs.on("data", function (chunk) {
   result.push(chunk);
   rs.pause();
-  setTimeout(() => {
-    rs.resume();
-  }, 1000);
 });
 
 rs.on("end", function () {
@@ -36,5 +33,3 @@ rs.on("end", function () {
 rs.on("close", function () {
   console.log("close");
 });
-
-
