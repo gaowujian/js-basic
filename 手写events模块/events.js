@@ -30,9 +30,7 @@ class EventEmitter {
 
     const isExist = this.events[eventName];
     if (isExist) {
-      this.events[eventName] = this.events[eventName].filter(
-        (fn) => fn !== callback && fn.l !== callback
-      );
+      this.events[eventName] = this.events[eventName].filter((fn) => fn !== callback && fn.l !== callback);
     }
   }
   once(eventName, callback) {
@@ -42,7 +40,7 @@ class EventEmitter {
     const once = (...args) => {
       callback(...args);
       // ** 额外的逻辑
-      this.off(eventName, once);
+      this.off(eventName, callback);
     };
     //执行
     once.l = callback;
