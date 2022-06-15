@@ -41,7 +41,7 @@
             const top = image.offsetTop;
 
             if (height >= top) {
-              images[acc].src = `/lazy-load-image/images/${acc + 1}.jpeg`;
+              images[acc].src = `/images/${acc + 1}.jpeg`;
               image.loaded = true;
               acc += 1;
             }
