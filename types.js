@@ -1,11 +1,30 @@
 //  js中一共包含了7中基本类型 可以使用typeof进行识别
-// 理论上有： number string undefined boolean symbol object null
+// 理论上有： number string undefined boolean symbol object null bigInt
 // 实际上： 没有null  因为null被认为是object 这是js的错误  同时多了function这一类型，这是因为typeof 对function 区别对待 不是很正确 但是编程方便
-console.log(typeof 0);
-console.log(typeof "str");
-console.log(typeof undefined);
-console.log(typeof true);
-console.log(typeof Symbol("id"));
+//  基本类型
+
+const allTypes = ["str",1,true,null,undefined,{}, function () {
+},Symbol("symbol"), BigInt(10)]
+allTypes.forEach(item=>{
+  console.log(item,":",typeof item, typeof typeof item)
+})
+
+// !使用typeof
+// 可以区分8种类型的的大多数，特殊情况 null 会返回object类型，函数会返回function而不是object
+// 对于其他内置 Date,Regexp或者自定义User类型，返回都是object
+
+
+// ! 使用instanceof
+// instanceof操作符用于查看一个构造函数的prototype属性 是否出现在一个object的原型链上
+
+
+// ! 使用Object.prototype.toString
+allTypes.forEach(item=>{
+  console.log(item,":",Object.prototype.toString.call(item))
+})
+
+
+
 // Math 是一个提供数学运算的内建 object。我们会在 数字类型 一节中学习它。此处仅作为一个 object 的示例。
 // typeof null 的结果是 "object"。这其实是不对的。官方也承认了这是 typeof 运算符的问题，现在只是为了兼容性而保留了下来。当然，null 不是一个 object。null 有自己的类型，它是一个特殊值。再次强调，这是 JavaScript 语言的一个错误。
 // typeof Math.random 的结果是 "function"，因为 random 在 JavaScript 语言中是一个函数。在 JavaScript 语言中没有一个特别的 “function” 类型。函数隶属于 object 类型。但是 typeof 会对函数区分对待。这不是很正确的做法，但在实际编程中非常方便。
