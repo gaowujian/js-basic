@@ -1,62 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>隐藏方案</title>
+  </head>
   <body>
-    <!--
-一:定义模板
-二:定义内部 CSS 样式 三:定义 JavaScript 行为
--->
-    <template id="geekbang-t">
-      <style>
-        p {
-          color: cornsilk;
-        }
-        div {
-          width: 200px;
-          background-color: bisque;
-          border: 3px solid chocolate;
-          border-radius: 10px;
-          background-color: brown;
-        }
-      </style>
-      <div>
-        <p>time.geekbang.org</p>
-        <p>time1.geekbang.org</p>
-      </div>
-      <script>
-        function foo() {
-          console.log("inner log");
-        }
-      </script>
-    </template>
-    <script>
-      class GeekBang extends HTMLElement {
-        constructor() {
-          super();
-          // 获取组件模板
-          const content = document.querySelector("#geekbang-t").content; // 创建影子 DOM 节点
-          const shadowDOM = this.attachShadow({ mode: "open" });
-          // 将模板添加到影子 DOM 上 shadowDOM.appendChild(content.cloneNode(true))
-        }
-      }
-      customElements.define("geek-bang", GeekBang);
-    </script>
-
-    <geek-bang></geek-bang>
-    <div>
-      <p>time.geekbang.org</p>
-      <p>time1.geekbang.org</p>
+    <ul>
+      <li>visibility 和 opacity的解决方案</li>
+      <li>两者都会占用空间</li>
+      <li>visibility不能使用动画，opacity可以使用动画</li>
+      <li>
+        visibility元素如果在其他元素上层会阻止下层元素的事件触发,而opacity不会
+      </li>
+    </ul>
+    <div class="container">
+      <div class="fore"></div>
+      <div class="back"></div>
     </div>
-    <geek-bang></geek-bang>
-
-    <!-- <img src="http://localhost:3000" alt="" /> -->
-    <script src="http://localhost:3000"></script>
-    <!-- <script>
-      const xhr = new XMLHttpRequest();
-      xhr.open("GET", "http://localhost:3000");
-      xhr.onreadystatechange = function (e) {
-        console.log("e:", e);
-      };
-      xhr.send();
-    </script> -->
+    <style>
+      .container {
+        width: 200px;
+        height: 200px;
+        position: relative;
+      }
+      .fore {
+        height: 100%;
+        background-color: lightblue;
+      }
+      .back {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-color: aqua;
+        visibility: hidden;
+        opacity: 0;
+      }
+    </style>
+    <script>
+      const fore = document.querySelector('.fore');
+      fore.addEventListener('click', (e) => {
+        console.log('click fore');
+      });
+      const back = document.querySelector('.back');
+      back.addEventListener('click', (e) => {
+        console.log('click back');
+      });
+    </script>
   </body>
 </html>
